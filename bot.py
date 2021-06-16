@@ -37,8 +37,11 @@ def coviduf(update,context):
 
 def covid(update,context):
     try:
-        pais = update.message.text.split(" ")[1]
-        update.message.reply_text(f.get_country(pais))
+        if len(update.message.text.split()) <= 2:
+            pais = update.message.text.split(" ")[1]
+        else:
+            pais = update.message.text.split(" ")[1] + update.message.text.split(" ")[2]
+            update.message.reply_text(f.get_country(pais))
     except Exception as e:
         print("Error running UF. Command: " + str(update.message.text) + " | Error: " + str(e))
         update.message.reply_text("Este não é um País válido.")

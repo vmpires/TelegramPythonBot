@@ -38,7 +38,7 @@ class Formatter:
             pais = pais.capitalize()
         for item in contentpais['data']:
                 if pais == item['country']:
-                    return (f"País: {item['country']}\nCasos: {Formatter.format_amount(item['confirmed'])}\nMortes: {Formatter.format_amount(item['deaths'])}")
+                    return (f"País: {item['country']}\nCasos confirmados: {Formatter.format_amount(item['confirmed'])}\nMortes: {Formatter.format_amount(item['deaths'])}")
         return ("País não encontrado, tente novamente.")
 
 #print(Formatter.format_amount(1000))
