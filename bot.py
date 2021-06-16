@@ -1,5 +1,6 @@
 import logging
 import os
+from formatter import Formatter as f
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -13,11 +14,26 @@ TOKEN = os.environ['telegramkey']
 
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text('Hello!')
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+    update.message.reply_text('This is a Brazilian Covid-19 Telegram Bot. For General Info, type /covidbr, for an specific UF info, type /coviduf <UF>.')
+
+def covidbr(update,context):
+    try:
+        update.message.reply_text(f.get_br())
+    except Exception as e:
+        print("Error running General Info. Command: " + str(update.message.text) + " | Error: " + str(e))
+        update.message.reply_text("Don't try any extra command after /covidbr")
+
+def coviduf(update,context):
+    try:
+        UF = update.message.text.split(" ")[1]
+        update.message.reply_text(f.get_uf(UF))
+    except Exception as e:
+        print("Error running UF. Command: " + str(update.message.text) + " | Error: " + str(e))
+        update.message.reply_text("This is not a valid brazilian UF.")
 
 def echo(update, context):
     """Echo the user message."""
@@ -40,6 +56,8 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("covidbr", covidbr))
+    dp.add_handler(CommandHandler("coviduf", coviduf))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
