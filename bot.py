@@ -12,13 +12,13 @@ logger = logging.getLogger(__name__)
 TOKEN = os.environ['telegramkey']
 
 
-def inicio(update, context):
+def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Olá! Tudo bom? Espero que esteja se cuidando, não esqueça de usar máscara e manter o distanciamento social.')
+    update.message.reply_text('Olá! Tudo bom? Espero que esteja se cuidando, não esqueça de usar máscara e manter o distanciamento social. Digite /ajuda para ver as instruções.')
 
 def ajuda(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text("Este é um bot brasileiro de informações sobre a Covid-19, para dados gerais sobre o Brasil, digite /covidbr.\nPara dados de estados isolados, digite /coviduf <UF>.")
+    update.message.reply_text("Este é um bot brasileiro de informações sobre a Covid-19. Para dados gerais sobre o Brasil, digite /covidbr.\nPara dados de estados isolados, digite /coviduf <UF>.")
 
 def covidbr(update,context):
     try:
@@ -54,7 +54,7 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("inicio", inicio))
+    dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("ajuda", ajuda))
     dp.add_handler(CommandHandler("covidbr", covidbr))
     dp.add_handler(CommandHandler("coviduf", coviduf))
