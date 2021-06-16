@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 class Formatter:
 
     def format_amount(amount):
@@ -31,8 +30,15 @@ class Formatter:
         contentuf = responseuf.json()
         return (f"Estado: {contentuf['state']}\nCasos: {Formatter.format_amount(contentuf['cases'])}\nMortes: {Formatter.format_amount(contentuf['deaths'])}")
 
+    def get_country(pais):
+        urlpais = (f"https://covid19-brazil-api.now.sh/api/report/v1/countries")
+        responsepais = requests.get(urlpais)
+        contentpais = responsepais.json()
+        for item in contentpais['data']:
+            if pais == item['country']:
+                return (f"País: {item['country']}\nCasos: {Formatter.format_amount(item['confirmed'])}\nMortes: {Formatter.format_amount(item['deaths'])}")
 
 #print(Formatter.format_amount(1000))
-print(Formatter.get_br())
-print(Formatter.get_uf("SP"))
+#print(Formatter.get_br())
+#print(Formatter.get_country("Germany"))
 

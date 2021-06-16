@@ -18,7 +18,7 @@ def start(update, context):
 
 def ajuda(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text("Este é um bot brasileiro de informações sobre a Covid-19.\nPara dados gerais sobre o Brasil, digite /covidbr.\nPara dados de estados isolados, digite /coviduf <UF>.")
+    update.message.reply_text("Este é um bot brasileiro de informações sobre a Covid-19.\nPara dados gerais sobre o Brasil, digite /covidbr.\nPara dados de estados isolados, digite /coviduf <UF>\nPara dados sobre outros países, digite /covid <nome do país em inglês>.")
 
 def covidbr(update,context):
     try:
@@ -34,6 +34,14 @@ def coviduf(update,context):
     except Exception as e:
         print("Error running UF. Command: " + str(update.message.text) + " | Error: " + str(e))
         update.message.reply_text("Esta não é uma Unidade Federativa válida.")
+
+def covid(update,context):
+    try:
+        pais = update.message.text.split(" ")[1]
+        update.message.reply_text(f.get_country(pais))
+    except Exception as e:
+        print("Error running UF. Command: " + str(update.message.text) + " | Error: " + str(e))
+        update.message.reply_text("Este não é um País válido.")
 
 def echo(update, context):
     """Echo the user message."""
@@ -58,6 +66,7 @@ def main():
     dp.add_handler(CommandHandler("ajuda", ajuda))
     dp.add_handler(CommandHandler("covidbr", covidbr))
     dp.add_handler(CommandHandler("coviduf", coviduf))
+    dp.add_handler(CommandHandler("covid", covid))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
