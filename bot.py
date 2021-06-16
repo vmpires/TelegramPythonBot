@@ -12,20 +12,20 @@ logger = logging.getLogger(__name__)
 TOKEN = os.environ['telegramkey']
 
 
-def start(update, context):
+def inicio(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hello!')
+    update.message.reply_text('Olá! Tudo bom?')
 
-def help(update, context):
+def ajuda(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('This is a Brazilian Covid-19 Telegram Bot. For General Info, type /covidbr, for an specific UF info, type /coviduf <UF>.')
+    update.message.reply_text("Este é um bot brasileiro de informações sobre a Covid-19, para dados gerais sobre o Brasil, digite /covidbr.\nPara dados de estados isolados, digite /coviduf <UF>.")
 
 def covidbr(update,context):
     try:
         update.message.reply_text(f.get_br())
     except Exception as e:
         print("Error running General Info. Command: " + str(update.message.text) + " | Error: " + str(e))
-        update.message.reply_text("Don't try any extra command after /covidbr")
+        update.message.reply_text("Não digite nada após /covidbr.")
 
 def coviduf(update,context):
     try:
@@ -33,7 +33,7 @@ def coviduf(update,context):
         update.message.reply_text(f.get_uf(UF))
     except Exception as e:
         print("Error running UF. Command: " + str(update.message.text) + " | Error: " + str(e))
-        update.message.reply_text("This is not a valid brazilian UF.")
+        update.message.reply_text("Esta não é uma Unidade Federativa válida.")
 
 def echo(update, context):
     """Echo the user message."""
@@ -54,8 +54,8 @@ def main():
     dp = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("inicio", inicio))
+    dp.add_handler(CommandHandler("ajuda", ajuda))
     dp.add_handler(CommandHandler("covidbr", covidbr))
     dp.add_handler(CommandHandler("coviduf", coviduf))
 
