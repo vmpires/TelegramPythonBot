@@ -18,7 +18,7 @@ def start(update, context):
 
 def ajuda(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text("Este é um bot brasileiro de informações sobre a Covid-19. Para dados gerais sobre o Brasil, digite /covidbr.\nPara dados de estados isolados, digite /coviduf <UF>.")
+    update.message.reply_text("Este é um bot brasileiro de informações sobre a Covid-19.\nPara dados gerais sobre o Brasil, digite /covidbr.\nPara dados de estados isolados, digite /coviduf <UF>.")
 
 def covidbr(update,context):
     try:
