@@ -34,11 +34,13 @@ class Formatter:
         urlpais = (f"https://covid19-brazil-api.now.sh/api/report/v1/countries")
         responsepais = requests.get(urlpais)
         contentpais = responsepais.json()
+        if pais[0].islower():
+            pais = pais.capitalize()
         for item in contentpais['data']:
-            if pais == item['country']:
-                return (f"País: {item['country']}\nCasos: {Formatter.format_amount(item['confirmed'])}\nMortes: {Formatter.format_amount(item['deaths'])}")
+                if pais == item['country']:
+                    return (f"País: {item['country']}\nCasos: {Formatter.format_amount(item['confirmed'])}\nMortes: {Formatter.format_amount(item['deaths'])}")
+        return ("País não encontrado, tente novamente.")
 
 #print(Formatter.format_amount(1000))
 #print(Formatter.get_br())
-#print(Formatter.get_country("Germany"))
-
+#print(Formatter.get_country("jaan"))
