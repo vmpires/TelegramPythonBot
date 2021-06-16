@@ -14,7 +14,7 @@ TOKEN = os.environ['telegramkey']
 
 def inicio(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Olá! Tudo bom?')
+    update.message.reply_text('Olá! Tudo bom? Espero que esteja se cuidando, não esqueça de usar máscara e manter o distanciamento social.')
 
 def ajuda(update, context):
     """Send a message when the command /help is issued."""
